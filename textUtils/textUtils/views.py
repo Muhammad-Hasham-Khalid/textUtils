@@ -8,15 +8,15 @@ def index(request):
     return render(request, 'index.html')
 
 def analyze(request):
-    text = request.POST.get('text', 'default')
+    text = request.GET.get('text', 'default')
     analyzed = text
     purposes = []
 
-    if request.POST.get('fullcaps', 'off') == 'on':
+    if request.GET.get('fullcaps', 'off') == 'on':
         purposes.append('Changed to UpperCase.')
         analyzed = analyzed.upper()
 
-    if request.POST.get('removepunc', 'off') == 'on':
+    if request.GET.get('removepunc', 'off') == 'on':
         temp = analyzed; analyzed = ''
         purposes.append('Removed Punctuations.')
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -25,7 +25,7 @@ def analyze(request):
                 analyzed += char
         del temp
 
-    if request.POST.get('newlineremover', 'off') == 'on':
+    if request.GET.get('newlineremover', 'off') == 'on':
         purposes.append('New lines Removed.')
         temp = analyzed; analyzed = ''
         for char in temp:
@@ -33,7 +33,7 @@ def analyze(request):
                 analyzed += char
         del temp
 
-    if request.POST.get('extraspaceremover', 'off') == 'on':
+    if request.GET.get('extraspaceremover', 'off') == 'on':
         purposes.append('Extra spaces removed.')
         temp = analyzed; analyzed = ''
         for idx, char in enumerate(temp):
@@ -42,7 +42,7 @@ def analyze(request):
                     analyzed += char
         del temp
 
-    if request.POST.get('charcount', 'off') == 'on':
+    if request.GET.get('charcount', 'off') == 'on':
         purposes.append('Total number of Characters in your text are : ' + str(len(text)))
 
     if len(purposes) == 0: purposes.append('No change.')

@@ -48,7 +48,7 @@
 
     <div class="container">
         <h4>Enter your text here:</h4>
-        <form action="/analyze" method='post'>{%csrf token%}
+        <form action="/analyze" method='get'>
             <!--csrf token for protection-->
             <div class="form-group">
                 <textarea class="form-control" rows="9" id="comment" name="text"></textarea>
